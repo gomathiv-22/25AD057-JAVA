@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ReliefCamp | Resource Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">+</div>
+        <div>
+            <h2>ReliefCamp</h2>
+            <span>Resource Tracker</span>
+        </div>
+    </div>
+
+    <nav>
+        <button class="nav-item active" onclick="showSection('dashboard', this)">
+            <span>⌂</span> Dashboard
+        </button>
+
+        <button class="nav-item" onclick="showSection('camps', this)">
+            <span>🏕</span> Camps
+        </button>
+
+        <button class="nav-item" onclick="showSection('families', this)">
+            <span>👨‍👩‍👧</span> Families
+        </button>
+
+        <button class="nav-item" onclick="showSection('supplies', this)">
+            <span>📦</span> Supplies
+        </button>
+
+        <button class="nav-item" onclick="showSection('distributions', this)">
+            <span>🚚</span> Distributions
+        </button>
+    </nav>
+
+    <div class="sidebar-footer">
+        <p>Disaster Relief</p>
+        <span>Management System</span>
+    </div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+        <div>
+            <p class="welcome">Relief Camp Management</p>
+            <h1 id="pageTitle">Dashboard</h1>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            System Online
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="content-section active-section">
+
+        <div class="hero">
+            <div>
+                <span class="hero-label">DISASTER RELIEF SYSTEM</span>
+                <h2>Manage Relief Camp Resources</h2>
+                <p>
+                    Manage camps, registered families, incoming supplies
+                    and distribution records from one place.
+                </p>
+            </div>
+
+            <div class="hero-icon">
+                🏕️
+            </div>
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon camp-icon">🏕</div>
+                <div>
+                    <span>Total Camps</span>
+                    <strong id="campCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon family-icon">👨‍👩‍👧</div>
+                <div>
+                    <span>Total Families</span>
+                    <strong id="familyCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon supply-icon">📦</div>
+                <div>
+                    <span>Total Supplies</span>
+                    <strong id="supplyCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon distribution-icon">🚚</div>
+                <div>
+                    <span>Distributions</span>
+                    <strong id="distributionCount">0</strong>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="quick-grid">
+
+            <div class="quick-card" onclick="showSection('camps')">
+                <span>🏕️</span>
+                <h3>Manage Camps</h3>
+                <p>Add, view, edit and delete relief camps.</p>
+                <button>Open Camps →</button>
+            </div>
+
+            <div class="quick-card" onclick="showSection('families')">
+                <span>👨‍👩‍👧</span>
+                <h3>Manage Families</h3>
+                <p>Register and manage families staying in camps.</p>
+                <button>Open Families →</button>
+            </div>
+
+            <div class="quick-card" onclick="showSection('supplies')">
+                <span>📦</span>
+                <h3>Manage Supplies</h3>
+                <p>Track incoming food, water and other supplies.</p>
+                <button>Open Supplies →</button>
+            </div>
+
+            <div class="quick-card" onclick="showSection('distributions')">
+                <span>🚚</span>
+                <h3>Manage Distribution</h3>
+                <p>Record supplies distributed to families.</p>
+                <button>Open Distribution →</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CAMPS -->
+    <section id="camps" class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <span class="small-title">CAMP MANAGEMENT</span>
+                <h2>Relief Camps</h2>
+                <p>Manage registered relief camps.</p>
+            </div>
+        </div>
+
+
+        <div class="form-card">
+
+            <h3 id="campFormTitle">Add New Camp</h3>
+
+            <form id="campForm">
+
+                <input type="hidden" id="campId">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Camp Name</label>
+                        <input type="text" id="campName"
+                               placeholder="Enter camp name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Location</label>
+                        <input type="text" id="campLocation"
+                               placeholder="Enter location" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Capacity</label>
+                        <input type="number" id="campCapacity"
+                               placeholder="Enter capacity" min="1" required>
+                    </div>
+
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="primary-btn">
+                        Save Camp
+                    </button>
+
+                    <button type="button" class="secondary-btn"
+                            onclick="resetCampForm()">
+                        Clear
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <div class="table-card">
+
+            <div class="table-header">
+                <div>
+                    <h3>Registered Camps</h3>
+                    <p>All available relief camps</p>
+                </div>
+
+                <button class="refresh-btn" onclick="loadCamps()">
+                    ↻ Refresh
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Camp Name</th>
+                        <th>Location</th>
+                        <th>Capacity</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="campTableBody"></tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FAMILIES -->
+    <section id="families" class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <span class="small-title">FAMILY MANAGEMENT</span>
+                <h2>Registered Families</h2>
+                <p>Manage families staying in relief camps.</p>
+            </div>
+        </div>
+
+
+        <div class="form-card">
+
+            <h3>Add / Edit Family</h3>
+
+            <form id="familyForm">
+
+                <input type="hidden" id="familyId">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Family Name</label>
+                        <input type="text" id="familyName"
+                               placeholder="Enter family name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Headcount</label>
+                        <input type="number" id="familyHeadcount"
+                               placeholder="Number of members"
+                               min="1" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Camp ID</label>
+                        <input type="number" id="familyCampId"
+                               placeholder="Enter camp ID"
+                               min="1" required>
+                    </div>
+
+                </div>
+
+                <div class="form-buttons">
+
+                    <button type="submit" class="primary-btn">
+                        Save Family
+                    </button>
+
+                    <button type="button" class="secondary-btn"
+                            onclick="resetFamilyForm()">
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <div class="table-card">
+
+            <div class="table-header">
+                <div>
+                    <h3>Family Records</h3>
+                    <p>Registered families</p>
+                </div>
+
+                <button class="refresh-btn" onclick="loadFamilies()">
+                    ↻ Refresh
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Family Name</th>
+                        <th>Headcount</th>
+                        <th>Camp ID</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="familyTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUPPLIES -->
+    <section id="supplies" class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="small-title">SUPPLY MANAGEMENT</span>
+                <h2>Relief Supplies</h2>
+                <p>Manage incoming relief supplies.</p>
+            </div>
+
+        </div>
+
+
+        <div class="form-card">
+
+            <h3>Add / Edit Supply</h3>
+
+            <form id="supplyForm">
+
+                <input type="hidden" id="supplyId">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Supply Type</label>
+                        <input type="text" id="supplyType"
+                               placeholder="Water / Food / Blanket"
+                               required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Quantity</label>
+                        <input type="number" id="supplyQuantity"
+                               placeholder="Enter quantity"
+                               min="1" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Camp ID</label>
+                        <input type="number" id="supplyCampId"
+                               placeholder="Enter camp ID"
+                               min="1" required>
+                    </div>
+
+                </div>
+
+                <div class="form-buttons">
+
+                    <button type="submit" class="primary-btn">
+                        Save Supply
+                    </button>
+
+                    <button type="button" class="secondary-btn"
+                            onclick="resetSupplyForm()">
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <div class="table-card">
+
+            <div class="table-header">
+
+                <div>
+                    <h3>Supply Records</h3>
+                    <p>Available relief supplies</p>
+                </div>
+
+                <button class="refresh-btn" onclick="loadSupplies()">
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Supply Type</th>
+                        <th>Quantity</th>
+                        <th>Camp ID</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="supplyTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISTRIBUTIONS -->
+    <section id="distributions" class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="small-title">DISTRIBUTION MANAGEMENT</span>
+                <h2>Supply Distribution</h2>
+                <p>Manage supplies distributed to families.</p>
+            </div>
+
+        </div>
+
+
+        <div class="form-card">
+
+            <h3>Add / Edit Distribution</h3>
+
+            <form id="distributionForm">
+
+                <input type="hidden" id="distributionId">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Family ID</label>
+                        <input type="number" id="distributionFamilyId"
+                               placeholder="Enter family ID"
+                               min="1" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Supply ID</label>
+                        <input type="number" id="distributionSupplyId"
+                               placeholder="Enter supply ID"
+                               min="1" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Quantity</label>
+                        <input type="number" id="distributionQuantity"
+                               placeholder="Enter quantity"
+                               min="1" required>
+                    </div>
+
+                </div>
+
+                <div class="form-buttons">
+
+                    <button type="submit" class="primary-btn">
+                        Save Distribution
+                    </button>
+
+                    <button type="button" class="secondary-btn"
+                            onclick="resetDistributionForm()">
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <div class="table-card">
+
+            <div class="table-header">
+
+                <div>
+                    <h3>Distribution Records</h3>
+                    <p>Supply distribution history</p>
+                </div>
+
+                <button class="refresh-btn" onclick="loadDistributions()">
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Family ID</th>
+                        <th>Supply ID</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="distributionTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
