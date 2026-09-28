@@ -1,4 +1,4 @@
-package Entity;
+package _AD057.java.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -8,22 +8,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "camp")
+@Table(name = "supply")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Camp {
+public class Supply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long supplyId;
+
+    @NotBlank(message = "Supply type is required")
+    private String supplyType;
+
+    @Min(value = 1, message = "Quantity must be at least 1")
+    private int quantity;
+
     private Long campId;
-
-    @NotBlank(message = "Camp name is required")
-    private String campName;
-
-    @NotBlank(message = "Location is required")
-    private String location;
-
-    @Min(value = 1, message = "Capacity must be greater than 0")
-    private int capacity;
 }

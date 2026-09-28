@@ -1,7 +1,7 @@
-package Controller;
+package _AD057.java.Controller;
 
-import Entity.Camp;
-import Services.CampService;
+import _AD057.java.Entity.Camp;
+import _AD057.java.Services.CampService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

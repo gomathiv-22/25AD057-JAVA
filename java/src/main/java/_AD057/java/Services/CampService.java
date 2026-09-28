@@ -1,7 +1,7 @@
-package Services;
+package _AD057.java.Services;
 
-import Entity.Camp;
-import Repository.CampRepository;
+import _AD057.java.Entity.Camp;
+import _AD057.java.Repository.CampRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
