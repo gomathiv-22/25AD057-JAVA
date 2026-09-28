@@ -1,4 +1,9 @@
 package _AD057.java.Repository;
 
-public class SupplyRepository {
+import _AD057.java.Entity.Supply;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface SupplyRepository extends JpaRepository<Supply, Long> {
 }

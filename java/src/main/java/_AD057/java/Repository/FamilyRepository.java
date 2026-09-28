@@ -1,6 +1,6 @@
-package Repository;
+package _AD057.java.Repository;
 
-import Entity.Family;
+import _AD057.java.Entity.Family;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
